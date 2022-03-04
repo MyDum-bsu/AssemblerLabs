@@ -2,7 +2,7 @@
 
 int CalculateTask1_1(int x) {
     int result = 0;
-    _asm{
+    __asm{
             mov eax, x
             imul x
             imul x
