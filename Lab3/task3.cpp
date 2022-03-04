@@ -1,25 +1,30 @@
 #include <iostream>
 
 int main() {
-    int x = 22;
-    int y = 2;
-    int array_of_solutions[16];
+    int fib_array[47];
+    int count{};
     __asm {
+        xor ecx, ecx
         xor esi, esi
-        mov eax, x
-        mov ebx, y
+        mov eax, 0
+        mov ebx, 1
+
+        mov fib_array[esi*4], eax
+        inc esi
+        inc ecx
     _loop:
-        mov array_of_solutions[esi*4], eax
+        mov fib_array[esi*4], ebx
         inc esi
-        mov array_of_solutions[esi*4], ebx
-        inc esi
-        add ebx, 2
-        sub eax, 3
-        jns _loop
+        inc ecx
+        mov edx, eax; edx = a
+        mov eax, ebx; //eax = b
+        add edx, eax; edx = a + b
+        mov ebx, edx; //ebx = a + b
+        jno _loop
+        mov count, ecx
     }
-    for (int i = 0; i < 16; i += 2) {
-        std::cout << "50 = " << "2 * " << array_of_solutions[i] << " + 3 * " << array_of_solutions[i + 1] << "\n";
+    for (int i = 0; i < count; i++) {
+        std::cout << i + 1 << "\t" << fib_array[i] << "\n";
     }
     return 0;
 }
-
