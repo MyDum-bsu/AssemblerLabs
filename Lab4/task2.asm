@@ -16,21 +16,18 @@ pers9 real8 0.000000001
 .code
 
 _task2 PROC
-push ebp
-mov ebp,esp
-
+             push ebp
+             mov ebp,esp
 		finit
-
-		mov edx, [ebp + 8]; edx = &future Pi
+		mov edx, [ebp + 8];                edx = &future Pi
 		mov ebx, [ebp + 12]
-		mov persarr, ebx; persarr = &percision
-		mov ecx, 1 ; eÒx = k
+		mov persarr, ebx;                  persarr = &percision
+		mov ecx, 1 ;                       e—Åx = k
 		fld1
 		fldpi
 		fmul st(0), st(0)
 		fdiv b
-		fstp pi
-		
+		fstp pi		
 	_series:
 		inc ecx
 		mov ebx, ecx
@@ -41,11 +38,9 @@ mov ebp,esp
 		fild a
 		fdiv 
 		fmul st(0), st(0)
-		faddp ;st(0), st(1)
-		
-
-		;PERCISION CALCULATION
-		fld st(0) ; st(0) = st(1)
+		faddp ;                           st(0), st(1)
+		            ;PERCISION CALCULATION
+		fld st(0) ;                       st(0) = st(1)
 		fsub pi
 		fabs
 		fcom pers9
@@ -73,27 +68,14 @@ mov ebp,esp
 		mov [ebx + 8], ecx
 	_less9:		
 		fstp trash
-
-		cmp ecx, 1000000000
+		cmp ecx, 10000000
 		jb _series
-
-	    mov a, 8
+	       mov a, 8
 		fild a
 		fmul st(0), st(1)
 		fsqrt
 		fst qword ptr [edx]
-
-
-
-
-		
-
-
-
-
-pop ebp
-	ret
+             pop ebp
+	      ret
 _task2 ENDP
-
-
 end

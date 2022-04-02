@@ -19,19 +19,18 @@ pers9 real8 0.000000001
 .code
 
 _task3 PROC
-	push ebp
-	mov ebp, esp
-	finit
-	mov edx, [ebp + 8]; edx = &future ln2
+	       push ebp
+	       mov ebp, esp
+	       finit
+	       mov edx, [ebp + 8];                 edx = &future ln2
 		mov eax, [ebp + 12]
-		mov persarr, eax; persarr = &percision
-		xor ecx, ecx ; ecx = k
+		mov persarr, eax;                   persarr = &percision
+		xor ecx, ecx ;                      ecx = k
 		fldln2
 		fadd st(0), st(0)
 		fsub b
 		fstp ln2
 		fldz
-
 	_sum:
 		inc ecx
 		mov a, ecx
@@ -44,8 +43,7 @@ _task3 PROC
 		fsubrp
 		fdivp
 		faddp
-
-		fld st(0) ; st(0) = st(1)
+		fld st(0);                           st(0) = st(1)
 		fsub ln2
 		fabs
 		fcom pers9
@@ -73,21 +71,15 @@ _task3 PROC
 		mov [eax + 8], ecx
 	_less9:
 		fstp trash
-
 		cmp ecx, 100000000
 		jb _sum
-
 		fadd b
-	    mov a, 2
+	       mov a, 2
 		fild a
 		fdiv
 		mov edx, [ebp + 8]
 		fst qword ptr [edx]
-		
-pop ebp
-	ret
+             pop ebp
+	      ret
 _task3 ENDP
-
 end
-
-_task2 ENDP
